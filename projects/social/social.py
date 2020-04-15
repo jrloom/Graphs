@@ -1,3 +1,23 @@
+import random
+
+
+class Queue:
+    def __init__(self):
+        self.store = []
+
+    def size(self):
+        return len(self.store)
+
+    def enqueue(self, val):
+        self.store.append(val)
+
+    def dequeue(self):
+        if self.size() > 0:
+            return self.store.pop(0)
+        else:
+            return None
+
+
 class User:
     def __init__(self, name):
         self.name = name
@@ -64,8 +84,6 @@ class SocialGraph:
                 possible_friendships.append((user_id, friend_id))
 
         # ? Shuffle all possible friendships
-        import random
-
         random.shuffle(possible_friendships)
 
         # ? Create for first X pairs ... x is total // 2
