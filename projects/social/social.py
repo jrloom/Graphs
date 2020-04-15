@@ -106,12 +106,35 @@ class SocialGraph:
         """
         visited = {}  # Note that this is a dictionary, not a set
         # !!!! IMPLEMENT ME
+        # ? invoke queue, add starting point
+        que = Queue()
+        que.enqueue([user_id])
+
+        # ? queue cannot be empty
+        while que.size() > 0:
+            path = que.dequeue()
+            print(f"{path}")
+            print(f"{path[-1]}")
+
+            # ? check if visited
+            if path[-1] not in visited:
+                visited[path[-1]] = path
+
+                # ? add neighbors...
+                for next_vert in self.friendships[path[-1]]:
+
+                    # ? ...if not in visited
+                    if next_vert not in visited:
+                        new_path = list(path)
+                        new_path.append(next_vert)
+                        que.enqueue(new_path)
+
         return visited
 
 
 if __name__ == "__main__":
     sg = SocialGraph()
     sg.populate_graph(10, 2)
-    print(sg.friendships)
-    # connections = sg.get_all_social_paths(1)
-    # print(connections)
+    print(f"social graph --> {sg.friendships}")
+    connections = sg.get_all_social_paths(1)
+    print(f"connections --> {connections}")
